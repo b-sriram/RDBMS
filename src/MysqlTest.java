@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class Main {
+public class MysqlTest {
 	private static final String	USERNAME = "root";
 	private static final String	PASSWORD = "";
 	private static final String	CONN_STRING = 
