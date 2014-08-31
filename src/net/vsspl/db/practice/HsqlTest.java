@@ -13,28 +13,18 @@ public class HsqlTest {
 			"jdbc:hsqldb:data/explorecalifornia";
 	
 	public static void main(String[] args) throws SQLException {
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;		
-		try {	
-				conn = DriverManager.getConnection(H_CONN_STRING, USERNAME, PASSWORD); 
-				stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-				rs = stmt.executeQuery("SELECT * FROM states");
-			 
+			
+		try (	
+				Connection conn = DriverManager.getConnection(H_CONN_STRING, USERNAME, PASSWORD); 
+				Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ResultSet rs = stmt.executeQuery("SELECT * FROM states");
+			 ){
 				rs.last();
 				System.out.println("Number of Records: "+ rs.getRow());
-			
-		} catch (SQLException e) {
+			} catch (SQLException e) {
 			System.out.println("DB Connection failed");
 			System.err.println(e);
-		} finally {
-			if (rs != null)
-				rs.close();
-			if (stmt != null)
-				stmt.close();
-			if (conn != null)
-				conn.close();
-		}
+		} 
 
 	}
 
